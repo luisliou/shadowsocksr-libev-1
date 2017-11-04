@@ -31,7 +31,7 @@ sni_src = http.c \
           tls.c \
           rule.c
 
-ss_local_SOURCES = utils.c \
+ssr_local_SOURCES = utils.c \
                    jconf.c \
                    json.c \
                    encrypt.c \
@@ -42,7 +42,7 @@ ss_local_SOURCES = utils.c \
                    local.c \
                    $(sni_src)
 
-ss_tunnel_SOURCES = utils.c \
+ssr_tunnel_SOURCES = utils.c \
                     jconf.c \
                     json.c \
                     encrypt.c \
@@ -68,28 +68,28 @@ ss_tunnel_SOURCES = utils.c \
 #                     json.c \
 #                     manager.c
 
-ss_local_LDADD = $(SS_COMMON_LIBS)
-ss_tunnel_LDADD = $(SS_COMMON_LIBS)
+ssr_local_LDADD = $(SS_COMMON_LIBS)
+ssr_tunnel_LDADD = $(SS_COMMON_LIBS)
 #ss_server_LDADD = $(SS_COMMON_LIBS)
 #ss_manager_LDADD = $(SS_COMMON_LIBS)
 if USE_SYSTEM_SHARED_LIB
-ss_local_LDADD += -ludns
-ss_tunnel_LDADD += -ludns
+ssr_local_LDADD += -ludns
+ssr_tunnel_LDADD += -ludns
 #ss_server_LDADD += -ludns
 else
-ss_local_LDADD += $(top_builddir)/libudns/libudns.la
-ss_tunnel_LDADD += $(top_builddir)/libudns/libudns.la
+ssr_local_LDADD += $(top_builddir)/libudns/libudns.la
+ssr_tunnel_LDADD += $(top_builddir)/libudns/libudns.la
 #ss_server_LDADD += $(top_builddir)/libudns/libudns.la
 endif
 
-ss_local_CFLAGS = $(AM_CFLAGS) -DMODULE_LOCAL
-ss_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
+ssr_local_CFLAGS = $(AM_CFLAGS) -DMODULE_LOCAL
+ssr_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
 #ss_server_CFLAGS = $(AM_CFLAGS) -DMODULE_REMOTE
 #ss_manager_CFLAGS = $(AM_CFLAGS) -DMODULE_MANAGER
 
 if BUILD_WINCOMPAT
-ss_local_SOURCES += win32.c
-ss_tunnel_SOURCES += win32.c
+ssr_local_SOURCES += win32.c
+ssr_tunnel_SOURCES += win32.c
 endif
 
 if BUILD_REDIRECTOR
@@ -104,12 +104,12 @@ ss_redir_SOURCES = utils.c \
                    udprelay.c \
                    redir.c \
                    $(sni_src)
-ss_redir_CFLAGS = $(AM_CFLAGS) -DMODULE_REDIR
-ss_redir_LDADD = $(SS_COMMON_LIBS)
+ssr_redir_CFLAGS = $(AM_CFLAGS) -DMODULE_REDIR
+ssr_redir_LDADD = $(SS_COMMON_LIBS)
 if USE_SYSTEM_SHARED_LIB
-ss_redir_LDADD += -ludns
+ssr_redir_LDADD += -ludns
 else
-ss_redir_LDADD += $(top_builddir)/libudns/libudns.la
+ssr_redir_LDADD += $(top_builddir)/libudns/libudns.la
 endif
 endif
 
