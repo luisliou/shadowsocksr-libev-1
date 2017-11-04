@@ -21,8 +21,8 @@ SS_COMMON_LIBS += $(top_builddir)/libev/libev.la \
                   $(top_builddir)/libsodium/src/libsodium/libsodium.la
 endif
 
-bin_PROGRAMS = ss-local
-#bin_PROGRAMS += ss-tunnel
+bin_PROGRAMS = ssr-local
+bin_PROGRAMS += ssr-tunnel
 if !BUILD_WINCOMPAT
 #bin_PROGRAMS += ss-server ss-manager
 endif
@@ -42,15 +42,15 @@ ss_local_SOURCES = utils.c \
                    local.c \
                    $(sni_src)
 
-#ss_tunnel_SOURCES = utils.c \
-#                    jconf.c \
-#                    json.c \
-#                    encrypt.c \
-#                    udprelay.c \
-#                    cache.c \
-#                    netutils.c \
-#                    tunnel.c
-#
+ss_tunnel_SOURCES = utils.c \
+                    jconf.c \
+                    json.c \
+                    encrypt.c \
+                    udprelay.c \
+                    cache.c \
+                    netutils.c \
+                    tunnel.c
+
 #ss_server_SOURCES = utils.c \
 #                    netutils.c \
 #                    jconf.c \
@@ -69,32 +69,32 @@ ss_local_SOURCES = utils.c \
 #                     manager.c
 
 ss_local_LDADD = $(SS_COMMON_LIBS)
-#ss_tunnel_LDADD = $(SS_COMMON_LIBS)
+ss_tunnel_LDADD = $(SS_COMMON_LIBS)
 #ss_server_LDADD = $(SS_COMMON_LIBS)
 #ss_manager_LDADD = $(SS_COMMON_LIBS)
 if USE_SYSTEM_SHARED_LIB
 ss_local_LDADD += -ludns
-#ss_tunnel_LDADD += -ludns
+ss_tunnel_LDADD += -ludns
 #ss_server_LDADD += -ludns
 else
 ss_local_LDADD += $(top_builddir)/libudns/libudns.la
-#ss_tunnel_LDADD += $(top_builddir)/libudns/libudns.la
+ss_tunnel_LDADD += $(top_builddir)/libudns/libudns.la
 #ss_server_LDADD += $(top_builddir)/libudns/libudns.la
 endif
 
 ss_local_CFLAGS = $(AM_CFLAGS) -DMODULE_LOCAL
-#ss_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
+ss_tunnel_CFLAGS = $(AM_CFLAGS) -DMODULE_TUNNEL
 #ss_server_CFLAGS = $(AM_CFLAGS) -DMODULE_REMOTE
 #ss_manager_CFLAGS = $(AM_CFLAGS) -DMODULE_MANAGER
 
 if BUILD_WINCOMPAT
 ss_local_SOURCES += win32.c
-#ss_tunnel_SOURCES += win32.c
+ss_tunnel_SOURCES += win32.c
 endif
 
 if BUILD_REDIRECTOR
 bin_SCRIPTS = ss-nat
-bin_PROGRAMS += ss-redir
+bin_PROGRAMS += ssr-redir
 ss_redir_SOURCES = utils.c \
                    jconf.c \
                    json.c \
